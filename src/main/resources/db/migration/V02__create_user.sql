@@ -1,4 +1,4 @@
-CREATE TABLE userEntity (
+CREATE TABLE user_entity (
     id serial PRIMARY KEY,
     username VARCHAR(50),
     first_name VARCHAR(50),
