@@ -33,6 +33,8 @@ public class Article {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
+	private String language;
+
 	public Long getId() {
 		return id;
 	}
@@ -81,6 +83,14 @@ public class Article {
 		this.category = category;
 	}
 
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,6 +114,6 @@ public class Article {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
+	}	
 
 }
