@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.throughlettersandcode.event.ResourceCreatedEvent;
-import com.throughlettersandcode.model.User;
+import com.throughlettersandcode.model.UserEntity;
 import com.throughlettersandcode.repository.UserRepository;
 
 @RestController
@@ -28,13 +28,13 @@ public class UserResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
-	public List<User> listAll(){
+	public List<UserEntity> listAll(){
 		return userRepository.findAll();
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> create(@RequestBody User user, HttpServletResponse response){
-		User savedUser = userRepository.save(user);
+	public ResponseEntity<UserEntity> create(@RequestBody UserEntity user, HttpServletResponse response){
+		UserEntity savedUser = userRepository.save(user);
 		publisher.publishEvent(new ResourceCreatedEvent(this, response, Long.valueOf(savedUser.getId())));
 		return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
 	}

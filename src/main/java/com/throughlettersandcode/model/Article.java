@@ -22,7 +22,7 @@ public class Article {
 	
 	@ManyToOne
 	@JoinColumn(name = "author_id")
-	private User author;
+	private UserEntity author;
 	
 	@Column(name = "created_date")
 	private LocalDate createdDate;
@@ -51,11 +51,11 @@ public class Article {
 		this.title = title;
 	}
 
-	public User getAuthor() {
+	public UserEntity getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(User author) {
+	public void setAuthor(UserEntity author) {
 		this.author = author;
 	}
 

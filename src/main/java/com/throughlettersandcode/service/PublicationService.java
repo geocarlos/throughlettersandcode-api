@@ -2,7 +2,7 @@ package com.throughlettersandcode.service;
 
 import java.util.Optional;
 import com.throughlettersandcode.model.Article;
-import com.throughlettersandcode.model.User;
+import com.throughlettersandcode.model.UserEntity;
 import com.throughlettersandcode.model.Video;
 import com.throughlettersandcode.repository.ArticleRepository;
 import com.throughlettersandcode.repository.UserRepository;
@@ -58,7 +58,7 @@ public class PublicationService{
 	}
 
 	private void validateUser(Object object) {
-		Optional<User> author = null;
+		Optional<UserEntity> author = null;
 		
 		if(object instanceof Article){
 			Article article = (Article) object;
