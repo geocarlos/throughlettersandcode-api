@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,11 +29,13 @@ public class CategoryResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_READ_CATEGORY') and #oauth2.hasScope('read')")
 	public List<Category> listAll(){
 		return categoryRepository.findAll();
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CREATE_CATEGORY') and #oauth2.hasScope('write')")
 	public ResponseEntity<Category> create(@RequestBody Category category, HttpServletResponse response){
 		Category savedCategory = categoryRepository.save(category);
 		publisher.publishEvent(new ResourceCreatedEvent(this, response, Long.valueOf(savedCategory.getId())));

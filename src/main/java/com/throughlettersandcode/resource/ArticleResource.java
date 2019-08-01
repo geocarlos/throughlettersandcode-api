@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,11 +29,13 @@ public class ArticleResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_READ_ARTICLE') and #oauth2.hasScope('read')")
 	public List<Article> listAll(){
 		return articleRepository.findAll();
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CREATE_ARTICLE') and #oauth2.hasScope('write')")
 	public ResponseEntity<Article> create(@RequestBody Article article, HttpServletResponse response){
 		Article savedArticle = articleRepository.save(article);
 		publisher.publishEvent(new ResourceCreatedEvent(this, response, savedArticle.getId()));

@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2AccessToken> {
 	
 	@Autowired
-	private ThroughLettersAndCodeApiProperty tlcApiProperty;
+	private ThroughLettersAndCodeApiProperty throughLettersAnCodeApiProperty;
 
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -54,7 +54,7 @@ public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2Acces
 	private void addRefreshTokenToCookie(String refreshToken, HttpServletRequest req, HttpServletResponse res) {
 		Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
 		refreshTokenCookie.setHttpOnly(true);
-		refreshTokenCookie.setSecure(tlcApiProperty.getSecurity().isEnableHttps());
+		refreshTokenCookie.setSecure(throughLettersAnCodeApiProperty.getSecurity().isEnableHttps());
 		refreshTokenCookie.setPath(req.getContextPath() + "/oauth/token");
 		refreshTokenCookie.setMaxAge(2592000);
 		res.addCookie(refreshTokenCookie);		

@@ -7,5 +7,5 @@ import java.util.Optional;
 import com.throughlettersandcode.model.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer>{
-    public Optional<UserEntity> findUserByEmail(String email);
+    public Optional<UserEntity> findByEmail(String email);
 }
