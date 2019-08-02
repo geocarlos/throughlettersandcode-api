@@ -24,17 +24,19 @@ INSERT INTO user_entity (id, username, first_name, last_name, email, user_passwo
 
 INSERT INTO permission (id, description) values (1, 'ROLE_CREATE_CATEGORY');
 INSERT INTO permission (id, description) values (2, 'ROLE_READ_CATEGORY');
+INSERT INTO permission (id, description) values (3, 'ROLE_DELETE_CATEGORY');
 
-INSERT INTO permission (id, description) values (3, 'ROLE_CREATE_USER');
-INSERT INTO permission (id, description) values (4, 'ROLE_READ_USER');
+INSERT INTO permission (id, description) values (4, 'ROLE_CREATE_USER');
+INSERT INTO permission (id, description) values (5, 'ROLE_READ_USER');
+INSERT INTO permission (id, description) values (6, 'ROLE_DELETE_USER');
 
-INSERT INTO permission (id, description) values (5, 'ROLE_CREATE_ARTICLE');
-INSERT INTO permission (id, description) values (6, 'ROLE_READ_ARTICLE');
-INSERT INTO permission (id, description) values (7, 'ROLE_DELETE_ARTICLE');
+INSERT INTO permission (id, description) values (7, 'ROLE_CREATE_ARTICLE');
+INSERT INTO permission (id, description) values (8, 'ROLE_READ_ARTICLE');
+INSERT INTO permission (id, description) values (9, 'ROLE_DELETE_ARTICLE');
 
-INSERT INTO permission (id, description) values (8, 'ROLE_CREATE_VIDEO');
-INSERT INTO permission (id, description) values (9, 'ROLE_READ_VIDEO');
-INSERT INTO permission (id, description) values (10, 'ROLE_DELETE_VIDEO');
+INSERT INTO permission (id, description) values (10, 'ROLE_CREATE_VIDEO');
+INSERT INTO permission (id, description) values (11, 'ROLE_READ_VIDEO');
+INSERT INTO permission (id, description) values (12, 'ROLE_DELETE_VIDEO');
 
 -- admin
 INSERT INTO user_permission (user_id, permission_id) values (1, 1);
@@ -47,3 +49,5 @@ INSERT INTO user_permission (user_id, permission_id) values (1, 7);
 INSERT INTO user_permission (user_id, permission_id) values (1, 8);
 INSERT INTO user_permission (user_id, permission_id) values (1, 9);
 INSERT INTO user_permission (user_id, permission_id) values (1, 10);
+INSERT INTO user_permission (user_id, permission_id) values (1, 11);
+INSERT INTO user_permission (user_id, permission_id) values (1, 12);
