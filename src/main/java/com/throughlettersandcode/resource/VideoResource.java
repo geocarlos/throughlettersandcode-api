@@ -1,5 +1,7 @@
 package com.throughlettersandcode.resource;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,13 @@ public class VideoResource {
 	@PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
 	public Page<Video> getVideos(VideoFilter videoFilter, Pageable pageable){
 		return videoRepository.filterVideos(videoFilter, pageable);
+	}
+
+	@GetMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
+	public ResponseEntity<Video> getById(@PathVariable Long id){
+		Optional<Video> video = videoRepository.findById(id);
+		return video.isPresent() ? ResponseEntity.ok(video.get()) : ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping

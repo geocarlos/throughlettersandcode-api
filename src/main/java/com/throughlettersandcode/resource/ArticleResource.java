@@ -1,5 +1,7 @@
 package com.throughlettersandcode.resource;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,13 @@ public class ArticleResource {
 	@PreAuthorize("hasAuthority('ROLE_READ_ARTICLE') and #oauth2.hasScope('read')")
 	public Page<Article> getArticles(ArticleFilter articleFilter, Pageable pageable){
 		return articleRepository.filterArticles(articleFilter, pageable);
+	}
+
+	@GetMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_READ_ARTICLE') and #oauth2.hasScope('read')")
+	public ResponseEntity<Article> getById(@PathVariable Long id){
+		Optional<Article> article = articleRepository.findById(id);
+		return article.isPresent() ? ResponseEntity.ok(article.get()) : ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping
