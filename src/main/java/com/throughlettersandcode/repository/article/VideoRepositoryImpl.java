@@ -44,6 +44,15 @@ public class VideoRepositoryImpl implements VideoRepositoryQuery {
         return null;
     }
 
+    @Override
+    public Page<Video> findArticlesByCategoryId(Integer id, VideoFilter articleFilter, Pageable pageable) {
+        TypedQuery<Video> videos = manager
+                .createQuery("SELECT v FROM Video v JOIN v.category c WHERE c.id = :id", Video.class)
+                .setParameter("id", id);
+        addPaginationRestrictions(videos, pageable);
+        return new PageImpl<>(videos.getResultList(), pageable, total(articleFilter));
+    }
+
     private Long total(VideoFilter videoFilter) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);

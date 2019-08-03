@@ -45,6 +45,12 @@ public class VideoResource {
 		return videoRepository.filterVideos(videoFilter, pageable);
 	}
 
+	@GetMapping("/categories/{id}")
+	@PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
+	public Page<Video> getArticlesByCategory(@PathVariable Integer id, VideoFilter videoFilter, Pageable pageable){
+		return videoRepository.findArticlesByCategoryId(id, videoFilter, pageable);
+	}
+
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
 	public ResponseEntity<Video> getById(@PathVariable Long id){

@@ -10,4 +10,5 @@ import org.springframework.data.domain.Pageable;
 public interface VideoRepositoryQuery {
     public Page<Video> filterVideos(VideoFilter videoFilter, Pageable pageable);
     public Page<VideoSummary> summarize(VideoFilter videoFilter, Pageable pageable);
+    public Page<Video> findArticlesByCategoryId(Integer id, VideoFilter articleFilter, Pageable pageable);
 }
