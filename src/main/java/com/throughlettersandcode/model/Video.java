@@ -29,6 +29,9 @@ public class Video {
 	
 	@Column(name = "youtube_id")
 	private String youtubeId;
+
+	@Column(name = "video_description")
+	private String description;
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
@@ -92,6 +95,14 @@ public class Video {
 		this.language = language;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -116,5 +127,5 @@ public class Video {
 			return false;
 		return true;
 	}
-	
+
 }
