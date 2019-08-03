@@ -2,17 +2,20 @@ package com.throughlettersandcode.repository.projection;
 
 import java.time.LocalDate;
 
-public class ArticleSummary {
+public class VideoSummary {
 
     private Long id;
-    private String content;
+    private String description;
+    private String youtubeId;
     private LocalDate createdDate;
     private String category;
     private String author;
-    
-    public ArticleSummary(Long id, String content, LocalDate createdDate, String category, String author) {
+
+    public VideoSummary(Long id, String description, String youtubeId, LocalDate createdDate, String category,
+            String author) {
         this.id = id;
-        this.content = content;
+        this.description = description;
+        this.youtubeId = youtubeId;
         this.createdDate = createdDate;
         this.category = category;
         this.author = author;
@@ -26,12 +29,20 @@ public class ArticleSummary {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getYoutubeId() {
+        return youtubeId;
+    }
+
+    public void setYoutubeId(String youtubeId) {
+        this.youtubeId = youtubeId;
     }
 
     public LocalDate getCreatedDate() {

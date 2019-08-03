@@ -11,45 +11,45 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.throughlettersandcode.model.Article;
-import com.throughlettersandcode.repository.filter.ArticleFilter;
-import com.throughlettersandcode.repository.projection.ArticleSummary;
+import com.throughlettersandcode.model.Video;
+import com.throughlettersandcode.repository.filter.VideoFilter;
+import com.throughlettersandcode.repository.projection.VideoSummary;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-public class ArticleRepositoryImpl implements ArticleRepositoryQuery {
+public class VideoRepositoryImpl implements VideoRepositoryQuery {
 
     @PersistenceContext
     private EntityManager manager;
 
     @Override
-    public Page<Article> filterArticles(ArticleFilter articleFilter, Pageable pageable) {
+    public Page<Video> filterVideos(VideoFilter videoFilter, Pageable pageable) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<Article> criteria = builder.createQuery(Article.class);
-        Root<Article> root = criteria.from(Article.class);
+        CriteriaQuery<Video> criteria = builder.createQuery(Video.class);
+        Root<Video> root = criteria.from(Video.class);
 
-        Predicate[] predicates = createRestrictions(articleFilter, builder, root);
+        Predicate[] predicates = createRestrictions(videoFilter, builder, root);
         criteria.where(predicates);
 
-        TypedQuery<Article> query = manager.createQuery(criteria);
+        TypedQuery<Video> query = manager.createQuery(criteria);
         addPaginationRestrictions(query, pageable);
 
-        return new PageImpl<>(query.getResultList(), pageable, total(articleFilter));
-    }
-    
-    @Override
-	public Page<ArticleSummary> summarize(ArticleFilter articleFilter, Pageable pageable) {
-		return null;
+        return new PageImpl<>(query.getResultList(), pageable, total(videoFilter));
     }
 
-	private Long total(ArticleFilter articleFilter) {
+    @Override
+    public Page<VideoSummary> summarize(VideoFilter videoFilter, Pageable pageable) {
+        return null;
+    }
+
+    private Long total(VideoFilter videoFilter) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
-		Root<Article> root = criteria.from(Article.class);
+		Root<Video> root = criteria.from(Video.class);
 		
-		Predicate[] predicates = createRestrictions(articleFilter, builder, root);
+		Predicate[] predicates = createRestrictions(videoFilter, builder, root);
 		criteria.where(predicates);
 		
 		criteria.select(builder.count(root));
@@ -66,25 +66,25 @@ public class ArticleRepositoryImpl implements ArticleRepositoryQuery {
         query.setMaxResults(totalRecordsPerPage);
     }
     
-    private Predicate[] createRestrictions(ArticleFilter articleFilter, CriteriaBuilder builder, Root<Article> root) {
+    private Predicate[] createRestrictions(VideoFilter videoFilter, CriteriaBuilder builder, Root<Video> root) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if(articleFilter.getTitle() != null){
+        if(videoFilter.getTitle() != null){
             predicates.add(builder.like(builder.lower(root.get("title")), "%" + 
-			    articleFilter.getTitle().toLowerCase() + "%"));
+			    videoFilter.getTitle().toLowerCase() + "%"));
         }
         
-        if(articleFilter.getContent() != null){
+        if(videoFilter.getDescription() != null){
             predicates.add(builder.like(builder.lower(root.get("content")), "%" + 
-			    articleFilter.getContent().toLowerCase() + "%"));
+			    videoFilter.getDescription().toLowerCase() + "%"));
         }
 
-        if(articleFilter.getCreatedDate() != null){
-            predicates.add(builder.equal(root.get("createdDate"), articleFilter.getCreatedDate()));
+        if(videoFilter.getCreatedDate() != null){
+            predicates.add(builder.equal(root.get("createdDate"), videoFilter.getCreatedDate()));
         }
 
-        if(articleFilter.getLanguage() != null){
-            predicates.add(builder.equal(root.get("language"), articleFilter.getLanguage()));
+        if(videoFilter.getLanguage() != null){
+            predicates.add(builder.equal(root.get("language"), videoFilter.getLanguage()));
         }
 
         return predicates.toArray(new Predicate[predicates.size()]);
