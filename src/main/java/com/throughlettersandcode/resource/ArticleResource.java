@@ -1,5 +1,6 @@
 package com.throughlettersandcode.resource;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +44,12 @@ public class ArticleResource {
 	@PreAuthorize("hasAuthority('ROLE_READ_ARTICLE') and #oauth2.hasScope('read')")
 	public Page<Article> getArticles(ArticleFilter articleFilter, Pageable pageable){
 		return articleRepository.filterArticles(articleFilter, pageable);
+	}
+
+	@GetMapping("/categories/{id}")
+	@PreAuthorize("hasAuthority('ROLE_READ_ARTICLE') and #oauth2.hasScope('read')")
+	public Page<Article> getArticlesByCategory(@PathVariable Integer id, ArticleFilter articleFilter, Pageable pageable){
+		return articleRepository.findArticlesByCategoryId(id, articleFilter, pageable);
 	}
 
 	@GetMapping("/{id}")

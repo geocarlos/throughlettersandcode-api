@@ -38,26 +38,35 @@ public class ArticleRepositoryImpl implements ArticleRepositoryQuery {
 
         return new PageImpl<>(query.getResultList(), pageable, total(articleFilter));
     }
-    
+
     @Override
-	public Page<ArticleSummary> summarize(ArticleFilter articleFilter, Pageable pageable) {
-		return null;
+    public Page<Article> findArticlesByCategoryId(Integer id, ArticleFilter articleFilter, Pageable pageable) {
+        TypedQuery<Article> articles = manager
+                .createQuery("SELECT a FROM Article a JOIN a.category c WHERE c.id = :id", Article.class)
+                .setParameter("id", id);
+        addPaginationRestrictions(articles, pageable);
+        return new PageImpl<>(articles.getResultList(), pageable, total(articleFilter));
     }
 
-	private Long total(ArticleFilter articleFilter) {
+    @Override
+    public Page<ArticleSummary> summarize(ArticleFilter articleFilter, Pageable pageable) {
+        return null;
+    }
+
+    private Long total(ArticleFilter articleFilter) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
-		Root<Article> root = criteria.from(Article.class);
-		
-		Predicate[] predicates = createRestrictions(articleFilter, builder, root);
-		criteria.where(predicates);
-		
-		criteria.select(builder.count(root));
-		
-		return manager.createQuery(criteria).getSingleResult();
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<Article> root = criteria.from(Article.class);
+
+        Predicate[] predicates = createRestrictions(articleFilter, builder, root);
+        criteria.where(predicates);
+
+        criteria.select(builder.count(root));
+
+        return manager.createQuery(criteria).getSingleResult();
     }
 
-    private void addPaginationRestrictions(TypedQuery<?> query, Pageable pageable){
+    private void addPaginationRestrictions(TypedQuery<?> query, Pageable pageable) {
         int currentPage = pageable.getPageNumber();
         int totalRecordsPerPage = pageable.getPageSize();
         int firstRecordOnPage = currentPage * totalRecordsPerPage;
@@ -65,29 +74,29 @@ public class ArticleRepositoryImpl implements ArticleRepositoryQuery {
         query.setFirstResult(firstRecordOnPage);
         query.setMaxResults(totalRecordsPerPage);
     }
-    
+
     private Predicate[] createRestrictions(ArticleFilter articleFilter, CriteriaBuilder builder, Root<Article> root) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if(articleFilter.getTitle() != null){
-            predicates.add(builder.like(builder.lower(root.get("title")), "%" + 
-			    articleFilter.getTitle().toLowerCase() + "%"));
-        }
-        
-        if(articleFilter.getContent() != null){
-            predicates.add(builder.like(builder.lower(root.get("content")), "%" + 
-			    articleFilter.getContent().toLowerCase() + "%"));
+        if (articleFilter.getTitle() != null) {
+            predicates.add(
+                    builder.like(builder.lower(root.get("title")), "%" + articleFilter.getTitle().toLowerCase() + "%"));
         }
 
-        if(articleFilter.getCreatedDate() != null){
+        if (articleFilter.getContent() != null) {
+            predicates.add(builder.like(builder.lower(root.get("content")),
+                    "%" + articleFilter.getContent().toLowerCase() + "%"));
+        }
+
+        if (articleFilter.getCreatedDate() != null) {
             predicates.add(builder.equal(root.get("createdDate"), articleFilter.getCreatedDate()));
         }
 
-        if(articleFilter.getLanguage() != null){
+        if (articleFilter.getLanguage() != null) {
             predicates.add(builder.equal(root.get("language"), articleFilter.getLanguage()));
         }
 
         return predicates.toArray(new Predicate[predicates.size()]);
     }
-    
+
 }

@@ -10,4 +10,5 @@ import org.springframework.data.domain.Pageable;
 public interface ArticleRepositoryQuery {
     public Page<Article> filterArticles(ArticleFilter articleFilter, Pageable pageable);
     public Page<ArticleSummary> summarize(ArticleFilter articleFilter, Pageable pageable);
+    public Page<Article> findArticlesByCategoryId(Integer id, ArticleFilter articleFilter, Pageable pageable);
 }
