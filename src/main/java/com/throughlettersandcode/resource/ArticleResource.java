@@ -1,11 +1,11 @@
 package com.throughlettersandcode.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.throughlettersandcode.event.ResourceCreatedEvent;
 import com.throughlettersandcode.model.Article;
 import com.throughlettersandcode.repository.ArticleRepository;
+import com.throughlettersandcode.repository.filter.ArticleFilter;
 import com.throughlettersandcode.service.PublicationService;
 
 @RestController
@@ -38,8 +39,8 @@ public class ArticleResource {
 	
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_READ_ARTICLE') and #oauth2.hasScope('read')")
-	public List<Article> listAll(){
-		return articleRepository.findAll();
+	public Page<Article> getArticles(ArticleFilter articleFilter, Pageable pageable){
+		return articleRepository.filterArticles(articleFilter, pageable);
 	}
 	
 	@PostMapping
