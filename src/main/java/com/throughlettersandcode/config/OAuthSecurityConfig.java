@@ -9,10 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @Profile("oauth-security")
 @Configuration
 @EnableWebSecurity
+@EnableResourceServer
+@EnableAuthorizationServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter{
 	

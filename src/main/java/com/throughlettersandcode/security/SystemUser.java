@@ -11,15 +11,15 @@ public class SystemUser extends User {
 
 	private static final long serialVersionUID = 1L;
 
-	private UserEntity user;
+	private UserEntity userEntity;
 
-	public SystemUser(UserEntity user, Collection<? extends GrantedAuthority> authorities) {
-		super(user.getEmail(), user.getPassword(), authorities);
-		this.user = user;
+	public SystemUser(UserEntity userEntity, Collection<? extends GrantedAuthority> authorities) {
+		super(userEntity.getEmail(), userEntity.getPassword(), authorities);
+		this.userEntity = userEntity;
 	}
 
 	public UserEntity getUser() {
-		return user;
+		return userEntity;
 	}
 
 }

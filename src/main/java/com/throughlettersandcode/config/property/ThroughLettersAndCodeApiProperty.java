@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("throughlettersandcode")
 public class ThroughLettersAndCodeApiProperty {
 	
-	private String allowedOrigin = "http://localhost:8000";
+	private String allowedOrigin = "http://localhost:4200";
 	
 	private final Security security = new Security();
 	
