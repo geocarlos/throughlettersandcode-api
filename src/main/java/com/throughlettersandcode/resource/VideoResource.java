@@ -40,19 +40,19 @@ public class VideoResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
-	@PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
+	// @PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
 	public Page<Video> getVideos(VideoFilter videoFilter, Pageable pageable){
 		return videoRepository.filterVideos(videoFilter, pageable);
 	}
 
 	@GetMapping("/categories/{id}")
-	@PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
+	// @PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
 	public Page<Video> getArticlesByCategory(@PathVariable Integer id, VideoFilter videoFilter, Pageable pageable){
-		return videoRepository.findArticlesByCategoryId(id, videoFilter, pageable);
+		return videoRepository.findVideosByCategoryId(id, videoFilter, pageable);
 	}
 
 	@GetMapping("/{id}")
-	@PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
+	// @PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
 	public ResponseEntity<Video> getById(@PathVariable Long id){
 		Optional<Video> video = videoRepository.findById(id);
 		return video.isPresent() ? ResponseEntity.ok(video.get()) : ResponseEntity.notFound().build();

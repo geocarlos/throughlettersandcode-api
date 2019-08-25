@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "app_info")
 public class AppInfo {
@@ -48,6 +50,7 @@ public class AppInfo {
         this.title = title;
     }
 
+    @JsonIgnoreProperties("permissions")
     public UserEntity getAuthor() {
         return author;
     }

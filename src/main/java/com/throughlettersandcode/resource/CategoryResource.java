@@ -32,7 +32,7 @@ public class CategoryResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
-	@PreAuthorize("hasAuthority('ROLE_READ_CATEGORY') and #oauth2.hasScope('read')")
+	// @PreAuthorize("hasAuthority('ROLE_READ_CATEGORY') and #oauth2.hasScope('read')")
 	public List<Category> listAll(){
 		return categoryRepository.findAll();
 	}

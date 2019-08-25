@@ -38,13 +38,13 @@ public class AppInfoResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
-	@PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
+	// @PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
 	public List<AppInfo> getApps(){
 		return appInfoRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	@PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
+	// @PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
 	public ResponseEntity<AppInfo> getById(@PathVariable Integer id){
 		Optional<AppInfo> app = appInfoRepository.findById(id);
 		return app.isPresent() ? ResponseEntity.ok(app.get()) : ResponseEntity.notFound().build();

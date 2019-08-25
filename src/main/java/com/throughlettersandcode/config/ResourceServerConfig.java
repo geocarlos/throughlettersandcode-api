@@ -18,7 +18,16 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/categories")
+		.antMatchers(
+			"/categories", 
+			"/articles",
+			"/articles/{\\d+}",
+			"/articles/categories/{\\d+}", 
+			"/videos", 
+			"/videos/{\\d+}",
+			"/videos/categories/{\\d+}", 
+			"/apps",
+			"/apps/{\\d+}")
 		.permitAll()
 		.anyRequest()
 		.authenticated()
