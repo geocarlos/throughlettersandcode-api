@@ -96,6 +96,10 @@ public class VideoRepositoryImpl implements VideoRepositoryQuery {
             predicates.add(builder.equal(root.get("language"), videoFilter.getLanguage()));
         }
 
+        if(videoFilter.getCategory() != null){
+            predicates.add(builder.equal(root.get("category").get("name"), videoFilter.getCategory()));
+        }
+
         return predicates.toArray(new Predicate[predicates.size()]);
     }
     

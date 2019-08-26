@@ -8,6 +8,7 @@ public class VideoFilter {
     private String title;
     private String description;
     private String language;
+    private String category;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdDate;
@@ -42,6 +43,14 @@ public class VideoFilter {
 
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
 }
