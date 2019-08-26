@@ -96,6 +96,10 @@ public class ArticleRepositoryImpl implements ArticleRepositoryQuery {
             predicates.add(builder.equal(root.get("language"), articleFilter.getLanguage()));
         }
 
+        if (articleFilter.getCategory() != null) {
+            predicates.add(builder.equal(root.get("category").get("name"), articleFilter.getCategory()));
+        }
+
         return predicates.toArray(new Predicate[predicates.size()]);
     }
 

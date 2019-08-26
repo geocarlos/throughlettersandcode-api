@@ -9,6 +9,7 @@ public class ArticleFilter {
     private String title;
     private String content;
     private String language;
+    private String category;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdDate;
@@ -44,4 +45,14 @@ public class ArticleFilter {
     public void setLanguage(String language) {
         this.language = language;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    
 }
