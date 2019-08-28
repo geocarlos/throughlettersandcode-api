@@ -1,6 +1,7 @@
 package com.throughlettersandcode.cors;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -30,11 +31,14 @@ public class CorsFilter implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
+
+		final String allowedOrigin = Arrays.asList(throughLettersAndCodeApiProperty.getAllowedOrigins()).contains(request.getHeader("Origin")) ?
+				request.getHeader("origin") : throughLettersAndCodeApiProperty.getAllowedOrigins()[0];
 		
-		response.setHeader("Access-Control-Allow-Origin", throughLettersAndCodeApiProperty.getAllowedOrigin());
+		response.setHeader("Access-Control-Allow-Origin", allowedOrigin);
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		if("OPTIONS".equals(request.getMethod()) && throughLettersAndCodeApiProperty.getAllowedOrigin().equals(request.getHeader("Origin"))) {
+		if("OPTIONS".equals(request.getMethod()) && allowedOrigin.equals(request.getHeader("origin"))) {
 			response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
 			response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
 			response.setHeader("Access-Control-Max-Age", "3600");
