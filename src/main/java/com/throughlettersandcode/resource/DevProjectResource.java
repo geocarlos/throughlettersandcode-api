@@ -21,15 +21,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.throughlettersandcode.event.ResourceCreatedEvent;
-import com.throughlettersandcode.model.AppInfo;
-import com.throughlettersandcode.repository.AppInfoRepository;
+import com.throughlettersandcode.model.DevProject;
+import com.throughlettersandcode.repository.DevProjectRepository;
 import com.throughlettersandcode.service.PublicationService;
 
 @RestController
-@RequestMapping("/apps")
-public class AppInfoResource {
+@RequestMapping("/devprojects")
+public class DevProjectResource {
 	@Autowired
-	private AppInfoRepository appInfoRepository;
+	private DevProjectRepository devProjectRepository;
 
 	@Autowired
 	private PublicationService publicationService;
@@ -39,31 +39,31 @@ public class AppInfoResource {
 	
 	@GetMapping
 	// @PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
-	public List<AppInfo> getApps(){
-		return appInfoRepository.findAll();
+	public List<DevProject> getProjects(){
+		return devProjectRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
 	// @PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
-	public ResponseEntity<AppInfo> getById(@PathVariable Integer id){
-		Optional<AppInfo> app = appInfoRepository.findById(id);
-		return app.isPresent() ? ResponseEntity.ok(app.get()) : ResponseEntity.notFound().build();
+	public ResponseEntity<DevProject> getById(@PathVariable Integer id){
+		Optional<DevProject> project = devProjectRepository.findById(id);
+		return project.isPresent() ? ResponseEntity.ok(project.get()) : ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping
 	@PreAuthorize("hasAuthority('ROLE_CREATE_VIDEO') and #oauth2.hasScope('write')")
-	public ResponseEntity<AppInfo> create(@RequestBody AppInfo app, HttpServletResponse response){
-		AppInfo savedApp = appInfoRepository.save(app);
-		publisher.publishEvent(new ResourceCreatedEvent(this, response, savedApp.getId().longValue()));
-		return ResponseEntity.status(HttpStatus.CREATED).body(savedApp);
+	public ResponseEntity<DevProject> create(@RequestBody DevProject project, HttpServletResponse response){
+		DevProject savedProject = devProjectRepository.save(project);
+		publisher.publishEvent(new ResourceCreatedEvent(this, response, savedProject.getId().longValue()));
+		return ResponseEntity.status(HttpStatus.CREATED).body(savedProject);
 	}
 
 	@PutMapping("/{id}")
 	@PreAuthorize("hasAuthority('ROLE_CREATE_VIDEO')")
-	public ResponseEntity<AppInfo> updateArticle(@PathVariable Integer id, @RequestBody AppInfo app) {
+	public ResponseEntity<DevProject> updateArticle(@PathVariable Integer id, @RequestBody DevProject project) {
 		try {
-			AppInfo savedApp = publicationService.updateApp(id, app);
-			return ResponseEntity.ok(savedApp);
+			DevProject savedProject = publicationService.updateProject(id, project);
+			return ResponseEntity.ok(savedProject);
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -72,7 +72,7 @@ public class AppInfoResource {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAuthority('ROLE_DELETE_VIDEO')")
-	public void deleteVideo(@PathVariable Integer id){
-		appInfoRepository.deleteById(id);
+	public void deleteProject(@PathVariable Integer id){
+		devProjectRepository.deleteById(id);
 	}
 }

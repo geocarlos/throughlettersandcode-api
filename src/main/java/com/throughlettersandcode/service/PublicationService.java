@@ -2,12 +2,12 @@ package com.throughlettersandcode.service;
 
 import java.util.Optional;
 
-import com.throughlettersandcode.model.AppInfo;
+import com.throughlettersandcode.model.DevProject;
 import com.throughlettersandcode.model.Article;
 import com.throughlettersandcode.model.UserEntity;
 import com.throughlettersandcode.model.Video;
-import com.throughlettersandcode.repository.AppInfoRepository;
 import com.throughlettersandcode.repository.ArticleRepository;
+import com.throughlettersandcode.repository.DevProjectRepository;
 import com.throughlettersandcode.repository.UserRepository;
 import com.throughlettersandcode.repository.VideoRepository;
 
@@ -27,7 +27,7 @@ public class PublicationService{
 	private VideoRepository videoRepository;
 
 	@Autowired
-	AppInfoRepository appInfoRepository;
+	DevProjectRepository devProjectRepository;
 
 	public Article save(Article article) {
 		validateUser(article);
@@ -63,15 +63,15 @@ public class PublicationService{
 		return videoRepository.save(savedVideo);
 	}
 
-	public AppInfo updateApp(Integer id, AppInfo app) {
-		AppInfo savedApp = searchExistingApp(id);
-		if (!app.getAuthor().equals(savedApp.getAuthor())) {
-			validateUser(app);
+	public DevProject updateProject(Integer id, DevProject project) {
+		DevProject savedProject = searchExistingProject(id);
+		if (!project.getAuthor().equals(savedProject.getAuthor())) {
+			validateUser(project);
 		}
 
-		BeanUtils.copyProperties(app, savedApp, "id");
+		BeanUtils.copyProperties(project, savedProject, "id");
 
-		return appInfoRepository.save(savedApp);
+		return devProjectRepository.save(savedProject);
 	}
 
 	
@@ -113,11 +113,11 @@ public class PublicationService{
 		return savedVideo.get();
 	}
 
-	private AppInfo searchExistingApp(Integer id) {
-		Optional<AppInfo> savedApp = appInfoRepository.findById(id);
-		if(!savedApp.isPresent()) {
+	private DevProject searchExistingProject(Integer id) {
+		Optional<DevProject> savedProject = devProjectRepository.findById(id);
+		if(!savedProject.isPresent()) {
 			throw new IllegalArgumentException();
 		}
-		return savedApp.get();
+		return savedProject.get();
 	}
 }

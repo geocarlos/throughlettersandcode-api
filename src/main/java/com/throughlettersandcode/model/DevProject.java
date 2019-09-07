@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "app_info")
-public class AppInfo {
+@Table(name = "dev_project")
+public class DevProject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -87,7 +87,12 @@ public class AppInfo {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((author == null) ? 0 : author.hashCode());
+        result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        result = prime * result + ((youtubeId == null) ? 0 : youtubeId.hashCode());
         return result;
     }
 
@@ -99,11 +104,36 @@ public class AppInfo {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        AppInfo other = (AppInfo) obj;
+        DevProject other = (DevProject) obj;
+        if (author == null) {
+            if (other.author != null)
+                return false;
+        } else if (!author.equals(other.author))
+            return false;
+        if (createdDate == null) {
+            if (other.createdDate != null)
+                return false;
+        } else if (!createdDate.equals(other.createdDate))
+            return false;
+        if (description == null) {
+            if (other.description != null)
+                return false;
+        } else if (!description.equals(other.description))
+            return false;
         if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
+            return false;
+        if (title == null) {
+            if (other.title != null)
+                return false;
+        } else if (!title.equals(other.title))
+            return false;
+        if (youtubeId == null) {
+            if (other.youtubeId != null)
+                return false;
+        } else if (!youtubeId.equals(other.youtubeId))
             return false;
         return true;
     }

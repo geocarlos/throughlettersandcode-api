@@ -1,4 +1,4 @@
-CREATE TABLE app_info (
+CREATE TABLE IF NOT EXISTS dev_project (
     id serial PRIMARY KEY,
     title VARCHAR(80),
     author_id INTEGER REFERENCES user_entity(id),

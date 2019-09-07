@@ -26,8 +26,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			"/videos", 
 			"/videos/{\\d+}",
 			"/videos/categories/{\\d+}", 
-			"/apps",
-			"/apps/{\\d+}")
+			"/devprojects",
+			"/devprojects/{\\d+}")
 		.permitAll()
 		.anyRequest()
 		.authenticated()

@@ -1,4 +1,4 @@
-CREATE TABLE video (
+CREATE TABLE IF NOT EXISTS video (
     id serial PRIMARY KEY,
     title VARCHAR(80),
     author_id INTEGER REFERENCES user_entity(id),
