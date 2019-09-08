@@ -1,0 +1,31 @@
+version: '3.6'
+
+services:
+  # REST API
+  tlc-api:
+    network_mode: bridge
+    image: tlc-api:latest
+    container_name: tlc-api
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/usr/src/api
+  # Database
+  postgres:
+    network_mode: bridge
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=2957LocalDb
+      - POSTGRES_DB=throughlettersandcodeapi
+    image: postgres:latest
+    container_name: postgres
+    expose: 
+      - 5432
+    ports:
+      - "5431:5432"
+volumes:
+  db_data:
