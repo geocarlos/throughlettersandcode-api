@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS dev_project (
     author_id INTEGER REFERENCES user_entity(id),
     created_date TIMESTAMP NOT NULL,
     youtube_id VARCHAR(50),
-    app_description TEXT
+    app_description TEXT,
+    language VARCHAR(10)
 );

@@ -34,6 +34,8 @@ public class DevProject {
     @Column(name = "app_description")
     private String description;
 
+    private String language;
+
     public Integer getId() {
         return id;
     }
@@ -83,6 +85,8 @@ public class DevProject {
         this.description = description;
     }
 
+    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -95,7 +99,15 @@ public class DevProject {
         result = prime * result + ((youtubeId == null) ? 0 : youtubeId.hashCode());
         return result;
     }
+    
+    public String getLanguage() {
+        return language;
+    }
 
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -137,5 +149,6 @@ public class DevProject {
             return false;
         return true;
     }
+
 
 }
