@@ -1,10 +1,20 @@
 version: '3.6'
 
 services:
+  # Front-end app
+  front_end:
+    network_mode: bridge
+    image: geowildcat/main-repo:front-end
+    container_name: front-end
+    command: ["node", "/usr/src/front-end/index.js"]
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
   # REST API
   tlc-api:
     network_mode: bridge
-    image: tlc-api:latest
+    image: geowildcat/main-repo:tlc-api
     container_name: tlc-api
     depends_on:
       - postgres
@@ -18,12 +28,12 @@ services:
   postgres:
     network_mode: bridge
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=2957LocalDb
+      - POSTGRES_USER=tlcapidb
+      - POSTGRES_PASSWORD=vtsNQTL4tzNLsnUHLgV75zpyTT9WdVwd
       - POSTGRES_DB=throughlettersandcodeapi
     image: postgres:latest
     container_name: postgres
-    expose: 
+    expose:
       - 5432
     ports:
       - "5431:5432"
