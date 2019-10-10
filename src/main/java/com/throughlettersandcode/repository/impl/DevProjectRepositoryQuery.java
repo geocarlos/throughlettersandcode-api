@@ -1,4 +1,4 @@
-package com.throughlettersandcode.repository.article;
+package com.throughlettersandcode.repository.impl;
 
 import com.throughlettersandcode.model.DevProject;
 import com.throughlettersandcode.repository.filter.DevProjectFilter;

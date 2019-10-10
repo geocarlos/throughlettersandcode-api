@@ -1,4 +1,4 @@
-package com.throughlettersandcode.repository.article;
+package com.throughlettersandcode.repository.impl;
 
 import java.util.ArrayList;
 import java.util.List;

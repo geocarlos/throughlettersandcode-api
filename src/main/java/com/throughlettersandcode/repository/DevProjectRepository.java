@@ -1,7 +1,7 @@
 package com.throughlettersandcode.repository;
 
 import com.throughlettersandcode.model.DevProject;
-import com.throughlettersandcode.repository.article.DevProjectRepositoryQuery;
+import com.throughlettersandcode.repository.impl.DevProjectRepositoryQuery;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
