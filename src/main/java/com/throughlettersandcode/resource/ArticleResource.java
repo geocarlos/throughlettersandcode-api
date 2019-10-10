@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,7 @@ public class ArticleResource {
 	private PublicationService publicationService;
 	
 	@GetMapping
+	@CachePut(value = "articles")
 	// @PreAuthorize("hasAuthority('ROLE_READ_ARTICLE') and #oauth2.hasScope('read')")
 	public Page<Article> getArticles(ArticleFilter articleFilter, Pageable pageable){
 		return articleRepository.filterArticles(articleFilter, pageable);

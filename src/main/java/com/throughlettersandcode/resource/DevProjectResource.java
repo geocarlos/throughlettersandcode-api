@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,7 @@ public class DevProjectResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
+	@CachePut(value = "devProjects")
 	// @PreAuthorize("hasAuthority('ROLE_READ_VIDEO') and #oauth2.hasScope('read')")
 	public Page<DevProject> getProjects(DevProjectFilter projectFilter, Pageable pageable){
 		return devProjectRepository.filterProjects(projectFilter, pageable);

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import com.throughlettersandcode.model.Category;
 import com.throughlettersandcode.repository.CategoryRepository;
 
 @RestController
+@CachePut(value = "categories")
 @RequestMapping("/categories")
 public class CategoryResource {
 	@Autowired
