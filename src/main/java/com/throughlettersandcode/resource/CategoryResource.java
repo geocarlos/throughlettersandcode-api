@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.throughlettersandcode.event.ResourceCreatedEvent;
 import com.throughlettersandcode.model.Category;
 import com.throughlettersandcode.repository.CategoryRepository;
+import com.throughlettersandcode.repository.filter.CategoryFilter;
 
 @RestController
 @CachePut(value = "categories")
@@ -35,8 +36,8 @@ public class CategoryResource {
 	
 	@GetMapping
 	// @PreAuthorize("hasAuthority('ROLE_READ_CATEGORY') and #oauth2.hasScope('read')")
-	public List<Category> listAll(){
-		return categoryRepository.findAll();
+	public List<Category> listCategories(CategoryFilter categoryFilter){
+		return categoryRepository.filterCategories(categoryFilter);
 	}
 	
 	@PostMapping
